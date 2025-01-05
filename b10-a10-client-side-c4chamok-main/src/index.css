@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-gradient-text {
+    background: linear-gradient(90deg, #ff8c00, #ff2e63, #6a5acd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+.layout-bg{
+  background-image: url("./assets/Rect Light.svg");
+}
