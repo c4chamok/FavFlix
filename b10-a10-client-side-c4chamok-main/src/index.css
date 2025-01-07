@@ -11,3 +11,15 @@
 .layout-bg{
   background-image: url("./assets/Rect Light.svg");
 }
+
+.nav-bg{
+  background: linear-gradient(90deg, #1a1a40, #2d2a59)
+}
+
+.nav-active{
+  background-color: #7b68ee;
+}
+
+.hover-color{
+  background: #806cf0ea;
+}

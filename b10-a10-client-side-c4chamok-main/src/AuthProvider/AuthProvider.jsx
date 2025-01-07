@@ -7,9 +7,10 @@ export const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
 
-    const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(true)
-    const [isDark, setIsDark] = useState(false)
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [isDark, setIsDark] = useState(false);
+    const [selectedGenres, setSelectedGenres] = useState("");
 
     const googleProvider = new GoogleAuthProvider()
 
@@ -43,7 +44,7 @@ const AuthProvider = ({ children }) => {
 
 
 
-    const contextInfo = { login, register, logout, user, loading, updateUserProfile, googleSignIn, isDark, setIsDark }
+    const contextInfo = { login, register, logout, user, loading, updateUserProfile, googleSignIn, isDark, setIsDark, selectedGenres, setSelectedGenres }
 
     return (
         <AuthContext.Provider value={contextInfo}>

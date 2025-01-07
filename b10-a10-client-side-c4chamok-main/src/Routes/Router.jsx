@@ -12,6 +12,9 @@ import UpdateMovie from "../Pages/UpdateMovie";
 import ErrorPage from "../Pages/ErrorPage";
 import AboutUs from "../Pages/AboutUs";
 import ForgetPassword from "../Pages/ForgetPassword";
+import ContactUs from "../Pages/ContactUs";
+import TermsAndConditions from "../Pages/Terms&Condition";
+import FAQ from "../Pages/FAQ";
 
 const router = createBrowserRouter([
     {
@@ -41,7 +44,7 @@ const router = createBrowserRouter([
             {
                 path: `/movies/:id`,
                 loader: ({params})=> fetch(`https://favflix-server.vercel.app/movies/${params.id}`),
-                element: <PrivateRoute><MovieDetails></MovieDetails></PrivateRoute>
+                element: <MovieDetails></MovieDetails>
             },
             {
                 path: "/myfavorites",
@@ -50,6 +53,18 @@ const router = createBrowserRouter([
             {
                 path: "/aboutus",
                 element: <AboutUs></AboutUs>
+            },
+            {
+                path: '/contactus',
+                element: <ContactUs/>
+            },
+            {
+                path: '/termsandcondition',
+                element: <TermsAndConditions/>
+            },
+            {
+                path: '/faq',
+                element: <FAQ/>
             },
             {
                 path:'/login',

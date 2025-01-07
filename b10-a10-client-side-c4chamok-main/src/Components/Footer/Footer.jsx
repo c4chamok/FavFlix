@@ -1,6 +1,11 @@
+import { useContext } from "react";
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
+import { Link, useNavigate } from "react-router";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Footer = () => {
+  const navigate = useNavigate();
+  const { selectedGenres, setSelectedGenres } = useContext(AuthContext)
   return (
     <footer className="bg-gray-900 text-gray-300 mt-12 pt-20 pb-5">
       <div className="w-[90%] mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -10,19 +15,19 @@ const Footer = () => {
             Discover your favorite movies and manage your watchlist seamlessly with FavFlix. Enjoy an effortless user experience and curated movie collections.
           </p>
           <div className="flex space-x-4 mt-4">
-            <a href="#" aria-label="Facebook" className="text-gray-300 hover:text-blue-500">
+            <a href="https://www.facebook.com" target="_blank" aria-label="Facebook" className="text-gray-300 hover:text-blue-500">
               <FaFacebookF size={20} />
             </a>
-            <a href="#" aria-label="Twitter" className="text-gray-300 hover:text-blue-400">
+            <a href="https://www.x.com" target="_blank" aria-label="Twitter" className="text-gray-300 hover:text-blue-400">
               <FaTwitter size={20} />
             </a>
-            <a href="#" aria-label="Instagram" className="text-gray-300 hover:text-pink-500">
+            <a href="https://www.instagram.com" target="_blank" aria-label="Instagram" className="text-gray-300 hover:text-pink-500">
               <FaInstagram size={20} />
             </a>
-            <a href="#" aria-label="LinkedIn" className="text-gray-300 hover:text-blue-700">
+            <a href="https://www.linkedin.com" target="_blank" aria-label="LinkedIn" className="text-gray-300 hover:text-blue-700">
               <FaLinkedinIn size={20} />
             </a>
-            <a href="#" aria-label="YouTube" className="text-gray-300 hover:text-red-500">
+            <a href="https://www.youtube.com" target="_blank" aria-label="YouTube" className="text-gray-300 hover:text-red-500">
               <FaYoutube size={20} />
             </a>
           </div>
@@ -30,21 +35,20 @@ const Footer = () => {
         <div>
           <h3 className="text-white text-lg font-semibold mb-4">Quick Links</h3>
           <ul className="space-y-2 text-sm">
-            <li><a href="#" className="hover:text-white">About Us</a></li>
-            <li><a href="#" className="hover:text-white">Privacy Policy</a></li>
-            <li><a href="#" className="hover:text-white">Terms & Conditions</a></li>
-            <li><a href="#" className="hover:text-white">Contact Us</a></li>
-            <li><a href="#" className="hover:text-white">FAQ</a></li>
+            <li><Link to="/aboutus" className="hover:text-white">About Us</Link></li>
+            <li><Link to={"/termsandcondition"} className="hover:text-white">Terms & Conditions</Link></li>
+            <li><Link to="/contactus" className="hover:text-white">Contact Us</Link></li>
+            <li><Link to="/faq" className="hover:text-white">FAQ</Link></li>
           </ul>
         </div>
         <div>
           <h3 className="text-white text-lg font-semibold mb-4">Popular Categories</h3>
           <ul className="space-y-2 text-sm">
-            <li><a href="#" className="hover:text-white">Action</a></li>
-            <li><a href="#" className="hover:text-white">Comedy</a></li>
-            <li><a href="#" className="hover:text-white">Drama</a></li>
-            <li><a href="#" className="hover:text-white">Thriller</a></li>
-            <li><a href="#" className="hover:text-white">Sci-Fi</a></li>
+            <li><button onClick={e=>{setSelectedGenres("action"); navigate("allmovies") }}  className="hover:text-white">Action</button></li>
+            <li><button onClick={e=>{setSelectedGenres("comedy"); navigate("allmovies") }} className="hover:text-white">Comedy</button></li>
+            <li><button onClick={e=>{setSelectedGenres("drama"); navigate("allmovies") }} className="hover:text-white">Drama</button></li>
+            <li><button onClick={e=>{setSelectedGenres("thriller"); navigate("allmovies") }} className="hover:text-white">Thriller</button></li>
+            <li><button onClick={e=>{setSelectedGenres("sci-fi"); navigate("allmovies") }} className="hover:text-white">Sci-Fi</button></li>
           </ul>
         </div>
         <div>

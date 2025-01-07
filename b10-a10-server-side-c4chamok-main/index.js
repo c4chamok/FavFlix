@@ -33,15 +33,15 @@ async function run() {
         const comments = database.collection("Comments");
 
         app.post("/movies", async (req, res) => {
-            console.log(req.body);
             const result = await movies.insertOne(req.body);
             res.send(result);
         })
 
-        app.post("/multi-movies", async (req, res) => {
-            const { ids } = req.body;
-            if (ids) {
-                const objectIds = ids?.map(id => new ObjectId(id));
+        app.get("/favourite-movies/:email", async (req, res) => {
+            const query = { email: req.params.email };
+            const cursor = await favouriteMovies.findOne(query);
+            if (cursor.movieIDS) {
+                const objectIds = cursor.movieIDS.map(id => new ObjectId(id));
                 const movieData = await movies.find({ _id: { $in: objectIds } }).toArray();
                 res.send(movieData);
             }
@@ -56,12 +56,18 @@ async function run() {
             res.send(movieData);
         })
 
-        app.get("/moviesearch/:text", async (req, res) => {
-            const { text } = req.params;
-            const query = text ? { title: { $regex: text, $options: 'i' } } : {};
-            const cursor = movies.find(query);
-            const movieData = await cursor.toArray();
-            res.send(movieData);
+        app.get("/moviesearch", async (req, res) => {
+            const { serachText, category } = req.query;
+            if (category) {
+                const cursor = movies.find({ genre: { $in: [category] }});
+                const movieData = await cursor.toArray();
+                return res.send(movieData);
+            } else {
+                const query = serachText ? { title: { $regex: serachText, $options: 'i' } } : {};
+                const cursor = movies.find(query);
+                const movieData = await cursor.toArray();
+                res.send(movieData);
+            }
         })
 
         app.put("/movies", async (req, res) => {
@@ -89,7 +95,7 @@ async function run() {
                 sort: { rating: -1 },
             };
             const cursor = movies.find(query, options);
-            const movieData = await cursor.limit(6).toArray();
+            const movieData = await cursor.limit(8).toArray();
             res.send(movieData);
         })
 
@@ -158,7 +164,7 @@ async function run() {
         app.get("/comments", async (req, res) => {
 
             const results = await comments.find({}).sort({ timestamp: -1 })
-            .limit(5).toArray();
+                .limit(5).toArray();
 
             res.send(results)
         });

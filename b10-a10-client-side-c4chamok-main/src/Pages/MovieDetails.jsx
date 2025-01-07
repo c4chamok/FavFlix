@@ -111,7 +111,7 @@ const MovieDetails = () => {
                         size={30}
                         edit={false}
                     ></ReactStars>
-                    <div className="flex gap-4">
+                    <div className="flex flex-col lg:flex-row gap-4">
                         <button onClick={handleDelete} className="btn btn-error flex items-center gap-2">
                             <AiOutlineDelete className={` text-xl`} /> Delete Movie
                         </button>

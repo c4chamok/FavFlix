@@ -5,7 +5,7 @@ import ReactStars from 'react-stars';
 
 const MovieCard = ({ movie }) => {
     return (
-        <div className="relative hover:scale-105 hover:z-50 h-96 bg-gray-900 shadow-lg overflow-hidden rounded-lg group">
+        <div className="relative hover:scale-105 hover:z-30 h-96 bg-gray-900 shadow-lg overflow-hidden rounded-lg group">
             <img
                 src={movie.poster}
                 alt={movie.title}

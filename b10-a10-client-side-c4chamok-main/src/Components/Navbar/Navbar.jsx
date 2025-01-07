@@ -9,21 +9,26 @@ const Navbar = () => {
         setIsDark(event.target.checked)
     }
     return (
-        <div className='flex flex-col items-center'>
-            <div className="navbar w-[98%] justify-between relative z-10 ">
+        <nav className='flex flex-col items-center sticky top-0 z-50 nav-bg'>
+            <div className="navbar w-[96%] justify-between text-white">
                 <div className="">
                     <a className="btn text-2xl font-bold bg-gradient-text mr-3">FavFlix</a>
-                    <ul className={`hidden lg:flex border-l pl-3 border-l-gray-400 px-1 
+                    <ul className={`hidden lg:flex border-l pl-3 gap-2 border-l-gray-400 px-1 
                         ${isDark ? ` text-white` : ""}`}>
-                        <Link className='px-4 py-2 hover:bg-gray-200 rounded-md ' to={'/'}>Home</Link>
-                        <Link className='px-4 py-2 hover:bg-gray-200 rounded-md ' to={'/allmovies'}>All Movies</Link>
-                        <Link className='px-4 py-2 hover:bg-gray-200 rounded-md ' to={'/addmovies'}>Add Movies</Link>
-                        <Link className='px-4 py-2 hover:bg-gray-200 rounded-md ' to={'/myfavorites'}>My Favorites</Link>
-                        <Link className='px-4 py-2 hover:bg-gray-200 rounded-md ' to={'/aboutus'}>About Us</Link>
+                        <NavLink className={({ isActive }) => `px-4 py-2 hover:bg-[#beb5f5fa] rounded-md font-semibold ${isActive ? "nav-active" : ""}`} to={'/'}>Home</NavLink>
+                        <NavLink className={({ isActive }) => `px-4 py-2 hover:bg-[#beb5f5fa] rounded-md font-semibold ${isActive ? "nav-active" : ""}`} to={'/allmovies'}>All Movies</NavLink>
+                        <NavLink className={({ isActive }) => `px-4 py-2 hover:bg-[#beb5f5fa] rounded-md font-semibold ${isActive ? "nav-active" : ""}`} to={'/aboutus'}>About Us</NavLink>
+                        <NavLink className={({ isActive }) => `px-4 py-2 hover:bg-[#beb5f5fa] rounded-md font-semibold ${isActive ? "nav-active" : ""}`} to={'/contactus'}>Contact Us</NavLink>
+                        { user &&
+                            <>
+                                <NavLink className={({ isActive }) => `px-4 py-2 hover:bg-[#beb5f5fa] rounded-md font-semibold ${isActive ? "nav-active" : ""}`} to={'/addmovies'}>Add Movies</NavLink>
+                                <NavLink className={({ isActive }) => `px-4 py-2 hover:bg-[#beb5f5fa] rounded-md font-semibold ${isActive ? "nav-active" : ""}`} to={'/myfavorites'}>My Favorites</NavLink>
+                            </>
+                        }
 
                     </ul>
                 </div>
-                <div className="flex gap-5 items-center">
+                <div className="flex items-center gap-3 justify-between">
                     <label className={`swap swap-rotate ${isDark ? ` text-white` : ""}`}>
                         <input onChange={handleChange} type="checkbox" className="theme-controller" checked={isDark} />
                         <svg
@@ -41,86 +46,91 @@ const Navbar = () => {
                                 d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
                         </svg>
                     </label>
-                    {user ?
-                        <span className="flex items-center gap-2 relative">
 
-                            <div className="relative group">
-                                <Link>
-                                    <img
-                                        className="h-10 w-10 rounded-full"
-                                        src={user?.photoURL || FaUser}
-                                        alt="User Avatar"
-                                    />
-                                </Link>
-                                <div className="absolute right-5 -mt-1  hidden group-hover:block px-2 py-1 w-fit bg-gray-800 text-white text-sm rounded shadow">
-                                    {user?.displayName}
-                                    <button
-                                        onClick={logout}
-                                        className="btn px-6 my-2 border-indigo-500 bg-transparent text-white hover:bg-indigo-600"
-                                    >
-                                        Logout
-                                    </button>
+                    <div className='flex items-center'>
+                        {user ?
+                            <span className="flex items-center gap-2 relative">
+
+                                <div className="relative group">
+                                    <Link>
+                                        <img
+                                            className="h-10 w-10 rounded-full"
+                                            src={user?.photoURL || FaUser}
+                                            alt="User Avatar"
+                                        />
+                                    </Link>
+                                    <div className="absolute right-5 -mt-1  hidden group-hover:block px-2 py-1 w-fit bg-gray-800 text-white text-sm rounded shadow">
+                                        {user?.displayName}
+                                        <button
+                                            onClick={logout}
+                                            className="btn px-6 my-2 border-indigo-500 hover:border-indigo-600 bg-transparent text-white hover:bg-indigo-600"
+                                        >
+                                            Logout
+                                        </button>
+                                    </div>
                                 </div>
+
+                            </span>
+                            :
+                            <div className='flex gap-4 items-center'>
+                                <Link to={'/login'}
+                                    className='btn px-6 bg-indigo-500 text-white hover:bg-indigo-600 border-none'>Login</Link>
+                                <Link to={'/register'}
+                                    className='btn px-6 bg-indigo-500 text-white hover:bg-indigo-600 border-none'>Register</Link>
                             </div>
 
-                        </span>
-                        :
-                        <div className='flex gap-4 items-center'>
-                            <Link to={'/login'} className='btn px-6 bg-indigo-500 text-white hover:bg-indigo-600'>Login</Link>
-                            <NavLink to={'/register'} className='btn px-6 bg-indigo-500 text-white hover:bg-indigo-600'>Register</NavLink>
-                        </div>
+                        }
 
-                    }
-
-                    <div className="dropdown">
-                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M4 6h16M4 12h8m-8 6h16" />
-                            </svg>
-                        </div>
-                        <ul
-                            tabIndex={0}
-                            className="right-5 menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            {
-                                user &&
-                                <div className='max-[768px]:flex hidden flex-col items-center justify-center pb-2 mb-2 border-b'>
-                                    <div>
-                                        <img
-                                            className="size-[41px] rounded-full"
-                                            src={user?.photoURL || FaUser}
-                                            alt=""
-                                        />
+                        <div className="dropdown">
+                            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-5 w-5"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M4 6h16M4 12h8m-8 6h16" />
+                                </svg>
+                            </div>
+                            <ul
+                                tabIndex={0}
+                                className="right-5 text-gray-800 menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                                {
+                                    user &&
+                                    <div className='max-[768px]:flex hidden flex-col items-center justify-center pb-2 mb-2 border-b'>
+                                        <div>
+                                            <img
+                                                className="size-[41px] rounded-full"
+                                                src={user?.photoURL || FaUser}
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div> {user?.displayName}</div>
                                     </div>
-                                    <div> {user?.displayName}</div>
-                                </div>
-                            }
-                            <li><NavLink to={'/'}>Home</NavLink></li>
-                            <Link className='px-4 py-2 hover:bg-gray-200 rounded-md ' to={'/allmovies'}>All Movies</Link>
-                            <Link className='px-4 py-2 hover:bg-gray-200 rounded-md ' to={'/addmovies'}>Add Movies</Link>
-                            <Link className='px-4 py-2 hover:bg-gray-200 rounded-md ' to={'/myfavorites'}>My Favorites</Link>
-                            <Link className='px-4 py-2 hover:bg-gray-200 rounded-md ' to={'/aboutus'}>About Us</Link>
-
-                            <li className='max-[768px]:block hidden'>
-                                {user ?
-                                    <button onClick={logout} className="btn px-6">Logout</button>
-                                    :
-                                    <Link to={'/login'} className='btn px-6'>Login</Link>
                                 }
-                            </li>
-                        </ul>
+                                <NavLink className='px-4 py-2 hover:bg-gray-200 rounded-md ' to={'/'}>Home</NavLink>
+                                <NavLink className='px-4 py-2 hover:bg-gray-200 rounded-md ' to={'/allmovies'}>All Movies</NavLink>
+                                <NavLink className='px-4 py-2 hover:bg-gray-200 rounded-md ' to={'/addmovies'}>Add Movies</NavLink>
+                                <NavLink className='px-4 py-2 hover:bg-gray-200 rounded-md ' to={'/myfavorites'}>My Favorites</NavLink>
+                                <NavLink className='px-4 py-2 hover:bg-gray-200 rounded-md ' to={'/aboutus'}>About Us</NavLink>
+
+                                <li className='max-[768px]:block hidden'>
+                                    {user ?
+                                        <button onClick={logout} className="btn px-6">Logout</button>
+                                        :
+                                        <Link to={'/login'} className='btn px-6'>Login</Link>
+                                    }
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </nav>
     );
 };
 

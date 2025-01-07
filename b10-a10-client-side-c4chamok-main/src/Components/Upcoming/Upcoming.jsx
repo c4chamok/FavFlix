@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Upcoming = () => {
+const Upcoming = ({isDark}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [trailerUrl, setTrailerUrl] = useState("");
 
@@ -20,7 +20,7 @@ const Upcoming = () => {
     },
     {
       id: 3,
-      title: "Movie 3",
+      title: "How To Train Your Dragon | Official Teaser Trailer",
       thumbnail: "https://img.youtube.com/vi/5lzoxHSn0C0/hqdefault.jpg",
       trailer: "https://www.youtube.com/embed/5lzoxHSn0C0",
     },
@@ -37,8 +37,8 @@ const Upcoming = () => {
   };
 
   return (
-    <div className="bg-gray-900 flex flex-col mt-20 mb-10 items-center text-white py-8 px-4">
-      <h2 className="text-3xl font-bold mb-6">Coming Soon</h2>
+    <div className=" flex flex-col mt-20 mb-10 items-center text-white py-8 px-4">
+      <h2 className={`text-3xl font-bold mb-8 text-center ${isDark ? ` text-white`: "text-gray-900"}`}>Coming Soon</h2>
       <div className="w-11/12 grid grid-cols-1 md:grid-cols-3 gap-6">
         {movies.map((movie) => (
           <div
